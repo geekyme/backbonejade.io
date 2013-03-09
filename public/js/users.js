@@ -1,8 +1,33 @@
 $(function(){
 	Backbone.io.connect();
+	//--------the App Super View -------------------//
+	//instantiate on view creation
+	App = new (Backbone.View.extend({
+		Models:{},
+		Views:{},
+		Collections:{},		
+		template:_.template('<form style="margin-top:50px;"><input type="text" name="name" placeholder="name" required /><br><input type="text" placeholder="occupation" name="occupation" required /><br><button class="btn btn-primary">Create</button></form><hr>'),
+		initialize: function(){
+			this.render();
+		},
+		render: function(){
+			this.$el.html(this.template());
+		},
+		events: {
+			"submit":"createUser"
+		},
+		createUser: function(e){
+			e.preventDefault();
+			users.addOne({
+				"name": this.$('input[name=name]').val(),
+				"occupation": this.$('input[name=occupation]').val(),
+			});
+		}
+	}))({el:$('#content')});
 
+	//--------the User Model Views and Collections-----------//
 	//Models ------- GLOBAL
-	User = Backbone.Model.extend({
+	App.Models.User = Backbone.Model.extend({
 		urlRoot:'/users',
 		h3change: function(){
 			this.set({name:'I have became Superman'});
@@ -11,7 +36,7 @@ $(function(){
 	})
 
 	//Views ------- GLOBAL
-	UserView = Backbone.View.extend({
+	App.Views.UserView = Backbone.View.extend({
 		className: 'thumbnail',
 		events:{
 			"click h3":"h3change"
@@ -31,17 +56,21 @@ $(function(){
 	})
 
 	//Collection -------- GLOBAL
-	Users = Backbone.Collection.extend({
+	App.Collections.Users = Backbone.Collection.extend({
 		initialize: function(){
 			this.bindBackend();
 		},
-		model: User,
+		model: App.Models.User,
 		url: '/users',
-		backend: 'superman'
+		backend: 'superman',
+		addOne: function(data){
+			this.add(data);
+		}
 	})
 
-	users = new Users(); //loading bootstrap data;
-	UsersView = Backbone.View.extend({
+	users = new App.Collections.Users(); //loading bootstrap data;
+
+	App.Views.UsersView = Backbone.View.extend({
 		collection: users,
 		initialize: function(){
 			this.render();
@@ -49,14 +78,22 @@ $(function(){
 			this.collection.on("reset", function() {
 				self.render();
 			});
+			this.collection.on("add", function(model){
+				self.addOne(model);
+			})
 		},
 		render: function(){
 			$.each(this.collection.models, function(i,model){
-				$('#content').append((new UserView({model:model})).el);				
+				$('#content').append((new App.Views.UserView({model:model})).el);				
 			})
 			return this;
+		},
+		addOne: function(model){
+			$('#content').append((new App.Views.UserView({model:model})).el);	
+			model.save();
 		}
 	});
 
-	usersView = new UsersView();
+	usersView = new App.Views.UsersView(); // binding the collection view	
+
 })

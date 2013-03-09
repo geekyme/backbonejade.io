@@ -30,9 +30,7 @@ app.db = [
 var backboneio = require('backbone.io');
 var server = require('http').createServer(app);
 var backend = backboneio.createBackend();
-backend.use(function(req, res, next) {
-    console.log(req.backend);
-    console.log(req.method);
+backend.read(function(req, res) {
     // My pseudo database update query
     // 1: look for the model in the database
     var o = _.find(app.db, function(obj){
@@ -43,8 +41,18 @@ backend.use(function(req, res, next) {
     // 2: update the model
     if(i > -1) app.db[i] = req.model;
     // -------------------------------
-    next();
 });
+
+backend.create(function(req, res) {
+    // My pseudo database update query
+    // 1: add the model to the DB. generate a unique id.
+    req.model.id = new Date()*Math.random();
+    app.db.push(req.model);
+    console.log(app.db);
+    backend.emit('created', req.model);
+    // -------------------------------
+});
+
 backboneio.listen(server, { superman: backend });
 
 // Configuration
