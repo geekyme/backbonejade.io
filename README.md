@@ -11,6 +11,7 @@
 * node app.js
 * Next fire up a few browsers and go to http://localhost:8080
 * Click one of the names and see what happens to the other browsers!
+* Refresh your browsers to see if data persists
 * Feel free to hack on this more to see what else you can do with socket.io + backbone
 
 #### Misc
