@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "author": {
+    "name": "Shawn Lim",
+    "email": "shawn.lim.2010@business.smu.edu.sg"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "3.x.x",
+    "stylus": ">= 0.29.x",
+    "jade": ">= 0.27.x",
+    "bcrypt": ">= 0.5.x",
+    "async": "0.1.x",
+    "moment": ">=1.7.x",
+    "socket.io": "0.9.x",
+    "nodemailer": "0.3.x",
+    "validator": "0.4.x",
+    "session.socket.io": "0.1.x",
+    "node-minify": "0.6.x",
+    "everyauth": "0.3.x",
+    "neo4j": "0.2.x",
+    "mailchimp":"0.9.x",
+    "backbone.io": "0.3.x",
+    "underscore":"1.4.x"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "scripts": {
+    "start": "app.js"
+  },
+  "name": "BackboneJade.io",
+  "description": "Test implementation of a Backbone.js app, powered by Node.js, it's templating engine Jade and socket.io"
+}

@@ -1,0 +1,34 @@
+
+div#form.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+	div.modal-header
+		button.close(type="button", data-dismiss="modal", aria-hidden="true") ×
+		h4 
+	div.modal-body
+		a.btn.home-btn.facebook(href='/auth/facebook')
+			i.icon-facebook
+			|   Connect with Facebook
+		hr
+		.prompt
+			.alert.alert-error.fade.in.hide
+			p Or get a Voguewerks Account. 
+			a(href='/') Already have one?
+		form.form-horizontal(method="post")
+			.control-group
+				label.control-label(for='inputEmail') Email
+				.controls
+					input#inputEmail(type='email', name='email', placeholder='We will keep it safe', required)
+			.control-group
+				label.control-label(for='inputPassword') Password
+				.controls
+					input#inputPassword(type='password', name='password', required)
+			.control-group
+				.controls
+					label.checkbox
+						input(type='checkbox')#remember-me
+						| Remember me
+					button#form-submit.btn.home-btn.btn-primary(type='submit') Sign in
+
+	div.modal-footer
+		div.btm-links
+			a(href='#')#forgot-password Forgot Your Password?
+	

@@ -1,0 +1,26 @@
+extends layout
+
+block append meta
+	meta(name="description", content="Test implementation of a Backbone.js app, powered by Node.js, it's templating engine Jade and socket.io")
+
+block body
+	#container
+		.container-fluid
+			.row-fluid
+				.maincol.span12
+					.row-fluid
+						#content
+						
+block append js
+	script(src='/lib/jquery.form.js')
+	script(src='/lib/underscore-min.js')
+	script(src='/lib/JSON-js/json2.js')
+	script(src='/lib/backbone-min.js')
+	script(src='/socket.io/socket.io.js')
+	script(src='/socket.io/backbone.io.js')
+	script(src='/js/users.js')
+	//Bootstrap our backbone models
+	if(usersData)
+		!= "<script type='text/javascript' defer>"
+		!=	"$(function(){users.reset("+JSON.stringify(usersData)+")});"
+		!= "</script>"

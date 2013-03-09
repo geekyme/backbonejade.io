@@ -1,0 +1,13 @@
+#new-project.modal.hide.fade
+	div.modal-header
+		button.close(data-dismiss='modal') x
+		h3 Create New Project
+	div.modal-body
+		form( method="post")#np-form
+			label Title
+			input#np-title(type="text", placeholder="Give your project a name").span4.required
+			label Description
+			textarea#np-description(type="text", placeholder="What is it about?").span4.required
+			br
+	div.modal-footer
+		button(data-dismiss="modal")#create-new.btn.btn-primary Create
