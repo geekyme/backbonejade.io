@@ -12,3 +12,6 @@
 * Next fire up a few browsers and go to http://localhost:8080
 * Click one of the names and see what happens to the other browsers!
 * Feel free to hack on this more to see what else you can do with socket.io + backbone
+
+#### Misc
+* package.json list a number of node packages many of which are not necessary but are just hot favourites, simply adding them for convenience
