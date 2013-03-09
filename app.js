@@ -36,12 +36,12 @@ backend.use(function(req, res, next) {
     // My pseudo database update query
     // 1: look for the model in the database
     var o = _.find(app.db, function(obj){
-        return obj.id == req.model.id;
+        return obj.id === req.model.id;
       }
     );
     var i = app.db.indexOf(o);
     // 2: update the model
-    if(i) app.db[i] = req.model;
+    if(i > -1) app.db[i] = req.model;
     // -------------------------------
     next();
 });
