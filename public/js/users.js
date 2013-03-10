@@ -18,17 +18,16 @@ $(function(){
 		},
 		createUser: function(e){
 			e.preventDefault();
-			users.addOne({
+			users.create({
 				"name": this.$('input[name=name]').val(),
 				"occupation": this.$('input[name=occupation]').val(),
-			});
+			}, {wait: true});
 		}
 	}))({el:$('#content')});
 
 	//--------the User Model Views and Collections-----------//
 	//Models ------- GLOBAL
 	App.Models.User = Backbone.Model.extend({
-		urlRoot:'/users',
 		h3change: function(){
 			this.set({name:'I have became Superman'});
 			this.save();
@@ -39,14 +38,19 @@ $(function(){
 	App.Views.UserView = Backbone.View.extend({
 		className: 'thumbnail',
 		events:{
-			"click h3":"h3change"
+			"click h3":"h3change",
+			"click .btn-danger": "removeUser"
+		},
+		removeUser: function(){
+			this.model.destroy();
 		},
 		h3change: function(e){
 			this.model.h3change();
 		},
-		template: _.template("<img src='' height='100' width='100'><h3><%= name %></h3><p><%= occupation %></p>"),
+		template: _.template("<img src='' height='100' width='100'><h3><%= name %></h3><p><%= occupation %></p><p><button class='btn btn-danger'>remove</p>"),
 		initialize:function(){
 			this.listenTo(this.model, 'change', this.render);
+			this.listenTo(this.model, 'destroy remove', this.remove);
 			this.render();
 		},
 		render:function(){
@@ -61,11 +65,7 @@ $(function(){
 			this.bindBackend();
 		},
 		model: App.Models.User,
-		url: '/users',
-		backend: 'superman',
-		addOne: function(data){
-			this.add(data);
-		}
+		backend: 'superman'
 	})
 
 	users = new App.Collections.Users(); //loading bootstrap data;
@@ -80,7 +80,7 @@ $(function(){
 			});
 			this.collection.on("add", function(model){
 				self.addOne(model);
-			})
+			});
 		},
 		render: function(){
 			$.each(this.collection.models, function(i,model){
@@ -89,8 +89,7 @@ $(function(){
 			return this;
 		},
 		addOne: function(model){
-			$('#content').append((new App.Views.UserView({model:model})).el);	
-			model.save();
+			$('#content').append((new App.Views.UserView({model:model})).el);
 		}
 	});
 
