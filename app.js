@@ -30,7 +30,7 @@ app.db = [
 var backboneio = require('backbone.io');
 var server = require('http').createServer(app);
 var backend = backboneio.createBackend();
-backend.use('create', 'read', function(req, res, next) {
+backend.use('update', 'read', function(req, res, next) {
     // My pseudo database update query
     // 1: look for the model in the database
     var o = _.find(app.db, function(obj){
