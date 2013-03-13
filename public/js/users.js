@@ -48,13 +48,22 @@ $(function(){
 			this.model.h3change();
 		},
 		template: _.template("<img src='' height='100' width='100'><h3><%= name %></h3><p><%= occupation %></p><p><button class='btn btn-danger'>remove</p>"),
+		duster: function(modelJSON){
+			var buildingTemplate = dust.compile("<img src='' height='100' width='100'><h3>{name}</h3><p>{occupation}</p><p><button class='btn btn-danger'>remove</p>","building");
+			dust.loadSource(buildingTemplate);
+			var result;
+			dust.render("building", modelJSON, function(err, out){
+				result = out;
+			});
+			return result;
+		},
 		initialize:function(){
 			this.listenTo(this.model, 'change', this.render);
 			this.listenTo(this.model, 'destroy remove', this.remove);
 			this.render();
 		},
 		render:function(){
-			this.$el.html(this.template(this.model.attributes));
+			this.$el.html(this.duster(this.model.attributes));
 			return this;
 		}
 	})

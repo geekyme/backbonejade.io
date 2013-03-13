@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
-var everyauth = require('everyauth');
+var dust = require('dustjs-linkedin');
 var express = require('express');
 var _ = require('underscore');
 app = express(); //global
@@ -69,6 +69,7 @@ backend.delete(function(req, res) {
 
 
 backboneio.listen(server, { superman: backend });
+/*var cons = require('consolidate');*/
 
 // Configuration
 
@@ -83,7 +84,6 @@ app.configure(function(){
   app.use(express.cookieParser('zee code!'));
   app.use(express.session({key: 'shawn.sid', secret: 'shawn nwahs'}));  
   app.use(express.methodOverride());
-  app.use(everyauth.middleware(app));  
   app.use(express.static(__dirname + '/public'));  
   app.use(app.router);    
   app.use(function(err, req, res, next){

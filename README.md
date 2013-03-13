@@ -6,6 +6,7 @@
 * Use of Jade to render initial HTML, and bootstrap a list of users (from dummy server DB :p) into backbone
 * How socket.io is used on backbone.js, using Backbone.io
 * CRUD on a list of users
+* Use of dustjs-linkedin on the frontend to render html templates
 
 #### Instructions
 * npm install
